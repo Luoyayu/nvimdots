@@ -112,5 +112,13 @@ editor["rcarriga/nvim-dap-ui"] = {
         }
     }
 }
-
+editor["simrat39/symbols-outline.nvim"] = {
+    disable = true, -- https://github.com/simrat39/symbols-outline.nvim/issues/98
+    opt = false,
+    config = conf.symbols_outline
+}
+editor["liuchengxu/vista.vim"] = {
+    opt = false,
+    config = conf.vista
+}
 return editor

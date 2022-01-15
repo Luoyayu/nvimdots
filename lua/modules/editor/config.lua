@@ -11,11 +11,13 @@ function config.symbols_outline()
         show_numbers = false,
         show_relative_numbers = false,
         show_symbol_details = true,
+        preview_bg_highlight = 'Pmenu',
         keymaps = {
-            close = "<Esc>",
+            close = {"<Esc>", "q"},
             goto_location = "<Cr>",
             focus_location = "o",
             hover_symbol = "<C-space>",
+            toggle_preview = "K",
             rename_symbol = "r",
             code_actions = "a"
         },
@@ -49,6 +51,10 @@ function config.symbols_outline()
             TypeParameter = {icon = "𝙏", hl = "TSParameter"}
         }
     }
+end
+
+function config.vista()
+    vim.g.vista_default_executive = 'coc'
 end
 
 function config.vim_cursorwod()
