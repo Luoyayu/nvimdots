@@ -1,12 +1,19 @@
 local config = {}
 
 function config.edge()
-    vim.cmd [[set background=dark]]
+    vim.cmd [[set background=light]]
     vim.g.edge_style = "aura"
     vim.g.edge_enable_italic = 1
     vim.g.edge_disable_italic_comment = 1
     vim.g.edge_show_eob = 1
     vim.g.edge_better_performance = 1
+end
+
+function config.tokyonight()
+    vim.g.tokyonight_style = "day"
+    vim.g.tokyonight_italic_variables = 1
+    vim.g.tokyonight_transparent = 0
+    vim.g.tokyonight_day_brightness = 0.4
 end
 
 function config.lualine()
@@ -23,14 +30,17 @@ function config.lualine()
     require("lualine").setup {
         options = {
             icons_enabled = true,
-            theme = "onedark",
+            theme = "auto", -- solarized for space-vim
             disabled_filetypes = {},
-            component_separators = "|",
-            section_separators = {left = "", right = ""}
+            component_separators = {left = "", right = ""},
+            section_separators = {left = "", right = ""},
+            always_divide_middle = true,
         },
         sections = {
             lualine_a = {"mode"},
-            lualine_b = {{"branch"}, {"diff"}},
+            lualine_b = {{"branch"}, {"diff", symbols = {added = ' ', modified = ' ', removed = ' '},}, {'filetype', colored = true, icon_only = true, separator = '', padding = { left = 1, right = 0 }},
+                {"filename", file_status = true, path = 0,symbols = {modified = '[⨦]', readonly = '[]', unnamed = '[λ]'}}
+            },
             lualine_c = {{gps_content, cond = gps.is_available}},
             lualine_x = {
                 {
@@ -43,8 +53,14 @@ function config.lualine()
                     symbols = {error = " ", warn = " ", info = " "}
                 }
             },
-            lualine_y = {"filetype", "encoding", "fileformat"},
-            lualine_z = {"progress", "location"}
+            lualine_y = {{"filetype"}, {"encoding", separator=''},
+                            {
+                                "fileformat",
+                                padding = {left = 0, right = 1},
+                                symbols = {unix = vim.loop.os_uname().sysname == 'Darwin' and '' or '', dos = '', mac = '',}
+                            }
+                        },
+            lualine_z = {{"progress", icon=''}, {"location",  icon='並'}}
         },
         inactive_sections = {
             lualine_a = {},
@@ -62,24 +78,55 @@ end
 function config.nvim_tree()
     local tree_cb = require"nvim-tree.config".nvim_tree_callback
     require("nvim-tree").setup {
-        gitignore = true,
-        ignore = {".git", "node_modules", ".cache"},
         open_on_tab = false,
+        open_on_setup = true,
         disable_netrw = true,
         hijack_netrw = true,
-        auto_close = true,
+        hijack_cursor = false,
+        auto_close = false,
         update_cwd = true,
         highlight_opened_files = true,
         auto_ignore_ft = {"startify", "dashboard"},
+        update_to_buf_dir   = {
+            enable = true,
+            auto_open = true,
+        },
         update_focused_file = {
             enable = true,
             update_cwd = true,
             ignore_list = {}
         },
+        diagnostics = {
+            enable = true,
+            icons = {
+              hint = "",
+              info = "",
+              warning = "",
+              error = "",
+            }
+        },
+        system_open = {
+            cmd  = nil,
+            args = {}
+        },
+        filters = {
+            dotfiles = false,
+            custom = {".DS_Store"}
+        },
+        git = {
+            enable = true,
+            ignore = true,
+            timeout = 500,
+        },
+        trash = {
+            cmd = "trash",
+            require_confirm = true
+        },
         view = {
             width = 30,
             side = "left",
             auto_resize = false,
+            signcolumn = "yes",
             mappings = {
                 custom_only = true,
                 -- list of mappings to set on the tree manually
@@ -122,6 +169,8 @@ function config.nvim_tree()
             }
         }
     }
+    vim.g.nvim_tree_symlink_arrow = ' → '
+    vim.g.nvim_tree_indent_markers = 1
 end
 
 function config.nvim_bufferline()
