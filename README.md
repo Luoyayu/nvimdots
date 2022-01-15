@@ -1,13 +1,20 @@
 # Table of Contents
 
-1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Structure](#structure)
-4. [Plugins](#plugins)
-5. [Keybindings](#keybindings)
-6. [Issues](#issues)
-7. [Credit](#credit)
-8. [TODO](#todo)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Prerequisites](#prerequisites)
+- [Structure](#structure)
+  - [How to customize](#how-to-customize)
+- [Plugins](#plugins)
+  - [UI](#ui)
+  - [Tools](#tools)
+  - [Editor](#editor)
+  - [Completion](#completion)
+  - [Lang](#lang)
+- [Keybindings](#keybindings)
+- [Issues](#issues)
+- [Credit](#credit)
+- [TODO](#todo)
 
 <a id="introduction"></a>
 
@@ -280,7 +287,7 @@ Then you can figure out what modification makes error.
 |                      [itchyny/vim-cursorword](https://github.com/itchyny/vim-cursorword)                      |        Highlight cursor word         |
 |                     [junegunn/vim-easy-align](https://github.com/junegunn/vim-easy-align)                     |            Easy alignment            |
 |                    [terrortylor/nvim-comment](https://github.com/terrortylor/nvim-comment)                    |         Comment code quickly         |
-|               [simrat39/symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)               |        Display code structure        |
+|                        [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim)                        |    Viewer & Finder for LSP symbols   |
 |             [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)             |   Super powerful code highlighter    |
 | [nvim-treesitter/nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) |     Select text objects quickly      |
 |              [romgrk/nvim-treesitter-context](https://github.com/romgrk/nvim-treesitter-context)              |         Show current context         |
