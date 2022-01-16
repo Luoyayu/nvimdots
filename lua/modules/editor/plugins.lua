@@ -118,7 +118,8 @@ editor["simrat39/symbols-outline.nvim"] = {
     config = conf.symbols_outline
 }
 editor["liuchengxu/vista.vim"] = {
-    opt = false,
+    opt = true,
+    after = "coc.nvim",
     config = conf.vista
 }
 return editor
