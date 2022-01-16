@@ -7,6 +7,20 @@
       "filetypes": ["go"]
     }
   },
+
+  "sumneko-lua.enable": true,
+  "sumneko-lua.enableNvimLuaDev": true,
+  "sumneko-lua.locale": "zh-cn",
+  "sumneko-lua.prompt": true,
+  "sumneko-lua.checkUpdate": true,
+  "Lua.workspace.library": [
+    "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua",
+    "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua/vim",
+    "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua/vim/lsp"
+  ],
+  "Lua.diagnostics.globals": ["vim"],
+  "Lua.runtime.version": "Lua 5.4",
+
   "rust-analyzer.enable": true,
   "rust-analyzer.updates.channel": "nightly",
   "rust-analyzer.server.path": "~/.local/bin/rust-analyzer",
@@ -31,8 +45,37 @@
     "javascript",
     "typescript"
   ],
+  "suggest.noselect": false,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
-  "diagnostic.hintSign": ""
+  "diagnostic.hintSign": "",
+
+  "suggest.completionItemKindLabels": {
+    "keyword": "",
+    "variable": "",
+    "value": "",
+    "operator": "Ψ",
+    "function": "ƒ",
+    "reference": "渚",
+    "constant": "",
+    "method": "",
+    "struct": "פּ",
+    "class": "",
+    "interface": "",
+    "text": "",
+    "enum": "",
+    "enumMember": "",
+    "module": "",
+    "color": "",
+    "property": "",
+    "field": "料",
+    "unit": "",
+    "event": "鬒",
+    "file": "",
+    "folder": "",
+    "snippet": "",
+    "typeParameter": "",
+    "default": ""
+  }
 }

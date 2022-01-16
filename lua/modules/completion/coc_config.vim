@@ -75,6 +75,8 @@ augroup mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " <C-p> to show function signature
+  inoremap <C-P> <C-\><C-O>:call CocActionAsync('showSignatureHelp')<cr>
 augroup end
 
 " Use CTRL-S for selections ranges.
@@ -129,7 +131,7 @@ let g:coc_global_extensions = [
       \'coc-vetur',
       \
       \'coc-clangd',
-      \'coc-lua',
+      \'coc-sumneko-lua',
       \'coc-go',
       \'coc-pyright',
       \'coc-rust-analyzer',
