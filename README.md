@@ -15,6 +15,7 @@
 - [Issues](#issues)
 - [Credit](#credit)
 - [TODO](#todo)
+- [Resources](#resources)
 
 <a id="introduction"></a>
 
@@ -332,7 +333,8 @@ Then you can figure out what modification makes error.
 
 # Keybindings
 
-The leader key is `,`.
+The leader key is `,`. 
+If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in `iTerm2/Preferences/Profiles/yourProfiles/keys/General`
 
 |                          Effect                           |            shortcut            |
 | :-------------------------------------------------------: | :----------------------------: |
@@ -496,3 +498,6 @@ Then use `Copilot setup` command to setup.
 
 - [x] More documentation for how to customize.
 - [x] Backup old compiled configuration when error occurs.
+
+# Resources
+ - [nerdfonts all icons](https://www.nerdfonts.com/cheat-sheet)
