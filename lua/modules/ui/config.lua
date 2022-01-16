@@ -27,6 +27,21 @@ function config.lualine()
         end
     end
 
+    local function location()
+        local is_visual_mode = vim.api.nvim_get_mode().mode == 'v'
+        local current_line = tostring(vim.fn.line('.'))
+        local total_line = tostring(vim.api.nvim_buf_line_count(0))
+        local current_column = tostring(vim.fn.col('.'))
+        local total_column = tostring(vim.fn.col('$') - 1)
+
+        local location_info = ''..current_line..'/'..total_line..' '..current_column..'/'..total_column
+        if is_visual_mode then
+          local visual_append_info = tostring(math.abs(vim.fn.line(".") - vim.fn.line("v")) + 1)
+          location_info = location_info ..' 礪' .. visual_append_info
+        end
+        return location_info
+    end
+
     require("lualine").setup {
         options = {
             icons_enabled = true,
@@ -46,11 +61,13 @@ function config.lualine()
                 {
                     "diagnostics",
                     sources = {"coc"},
-                    color_error = "#BF616A",
-                    color_warn = "#EBCB8B",
-                    color_info = "#81A1AC",
-                    color_hint = "#88C0D0",
-                    symbols = {error = " ", warn = " ", info = " "}
+                    diagnostics_color = {
+                        error = 'DiagnosticSignError',
+                        warn  = 'DiagnosticSignWarn',
+                        info  = 'DiagnosticSignInfo',
+                        hint  = 'DiagnosticSignHint',
+                      },
+                    symbols = {error = " ", warn = " ", info = " ", hint = " "}
                 }
             },
             lualine_y = {{"filetype"}, {"encoding", separator=''},
@@ -60,7 +77,7 @@ function config.lualine()
                                 symbols = {unix = vim.loop.os_uname().sysname == 'Darwin' and '' or '', dos = '', mac = '',}
                             }
                         },
-            lualine_z = {{"progress", icon=''}, {"location",  icon='並'}}
+            lualine_z = {{"progress", icon = ''}, {location}}
         },
         inactive_sections = {
             lualine_a = {},
