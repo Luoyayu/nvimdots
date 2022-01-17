@@ -1,95 +1,134 @@
 local config = {}
 
 function config.edge()
-    vim.cmd [[set background=light]]
-    vim.g.edge_style = "aura"
-    vim.g.edge_enable_italic = 1
-    vim.g.edge_disable_italic_comment = 1
-    vim.g.edge_show_eob = 1
-    vim.g.edge_better_performance = 1
+  vim.cmd [[set background=light]]
+  vim.g.edge_style = "aura"
+  vim.g.edge_enable_italic = 1
+  vim.g.edge_disable_italic_comment = 1
+  vim.g.edge_show_eob = 1
+  vim.g.edge_better_performance = 1
 end
 
 function config.tokyonight()
-    vim.g.tokyonight_style = "day"
-    vim.g.tokyonight_italic_variables = 1
-    vim.g.tokyonight_transparent = 0
-    vim.g.tokyonight_day_brightness = 0.4
+  vim.g.tokyonight_style = "day"
+  vim.g.tokyonight_italic_variables = 1
+  vim.g.tokyonight_transparent = 0
+  vim.g.tokyonight_day_brightness = 0.4
 end
 
 function config.lualine()
-    local gps = require("nvim-gps")
+  local gps = require("nvim-gps")
 
-    local function gps_content()
-        if gps.is_available() then
-            return gps.get_location()
-        else
-            return ""
-        end
+  local function gps_content()
+    if gps.is_available() then
+        return gps.get_location()
+    else
+        return ""
     end
+  end
 
-    local function location()
-        local is_visual_mode = vim.api.nvim_get_mode().mode == 'v'
-        local current_line = tostring(vim.fn.line('.'))
-        local total_line = tostring(vim.api.nvim_buf_line_count(0))
-        local current_column = tostring(vim.fn.col('.'))
-        local total_column = tostring(vim.fn.col('$') - 1)
-
-        local location_info = ''..current_line..'/'..total_line..' '..current_column..'/'..total_column
-        if is_visual_mode then
-          local visual_append_info = tostring(math.abs(vim.fn.line(".") - vim.fn.line("v")) + 1)
-          location_info = location_info ..' 礪' .. visual_append_info
-        end
-        return location_info
+  local function location()
+    local is_visual_mode = vim.api.nvim_get_mode().mode == 'v'
+    local total_column = tostring(vim.fn.col('$') - 1)
+    local location_info = "%l/%L %c/"..total_column
+    if is_visual_mode then
+      local visual_append_info = tostring(math.abs(vim.fn.line(".") - vim.fn.line("v")) + 1)
+      location_info = location_info ..' 礪' .. visual_append_info
     end
+    return location_info
+  end
 
-    require("lualine").setup {
-        options = {
-            icons_enabled = true,
-            theme = "auto", -- solarized for space-vim
-            disabled_filetypes = {},
-            component_separators = {left = "", right = ""},
-            section_separators = {left = "", right = ""},
-            always_divide_middle = true,
-        },
-        sections = {
-            lualine_a = {"mode"},
-            lualine_b = {{"branch"}, {"diff", symbols = {added = ' ', modified = ' ', removed = ' '},}, {'filetype', colored = true, icon_only = true, separator = '', padding = { left = 1, right = 0 }},
-                {"filename", file_status = true, path = 0,symbols = {modified = '[⨦]', readonly = '[]', unnamed = '[λ]'}}
-            },
-            lualine_c = {{gps_content, cond = gps.is_available}},
-            lualine_x = {
-                {
-                    "diagnostics",
-                    sources = {"coc"},
-                    diagnostics_color = {
-                        error = 'DiagnosticSignError',
-                        warn  = 'DiagnosticSignWarn',
-                        info  = 'DiagnosticSignInfo',
-                        hint  = 'DiagnosticSignHint',
-                      },
-                    symbols = {error = " ", warn = " ", info = " ", hint = " "}
-                }
-            },
-            lualine_y = {{"filetype"}, {"encoding", separator=''},
-                            {
-                                "fileformat",
-                                padding = {left = 0, right = 1},
-                                symbols = {unix = vim.loop.os_uname().sysname == 'Darwin' and '' or '', dos = '', mac = '',}
-                            }
-                        },
-            lualine_z = {{"progress", icon = ''}, {location}}
-        },
-        inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {"filename"},
-            lualine_x = {"location"},
-            lualine_y = {},
-            lualine_z = {}
-        },
-        tabline = {},
-        extensions = {"quickfix", "nvim-tree", "toggleterm", "fugitive"}
+  local lsp_symbols = {error = " ", warn = " ", info = " ", hint = " ", ok = "ﮒ"}
+  local lsp_colors  = {error = {bg = "#f19072", fg = "#425066"},
+                        warn = {bg = "#E7C482", fg = "#425066"},
+                        info = {bg = "#D3D9E5", fg = "#425066"},
+                        hint = {bg = "#89c3eb", fg = "#425066"},
+                        ok   = {bg = "#a4e2c6", fg = "#425066"}}
+
+  local diagnostic_section = function(cfg)
+    local default_cfg = {
+        "diagnostics",
+        source = {'coc'},
+        separator = {left = " ", right = ""},
+        padding = 0,
+        fmt = function(status)
+            if tonumber(status, 10) > 0 then
+                return cfg.leading..string.format(' %s%s ', cfg.symbol, status)
+            end
+            return ''
+        end,
+        symbols = {error = '', warn = '', hint = '', info = ''}, -- cover default symbols
+        colored = false,
+        always_visible = true,
+        cond = function() return vim.fn['coc#status'] ~= '' end
     }
+    return vim.tbl_extend("force", default_cfg, cfg)
+  end
+
+  require("lualine").setup {
+      options = {
+          icons_enabled = true,
+          theme = "auto", -- solarized for space-vim
+          disabled_filetypes = {},
+          component_separators = {left = "", right = ""},
+          section_separators = {left = "", right = ""},
+          always_divide_middle = true,
+      },
+      sections = {
+          lualine_a = {"mode"},
+          lualine_b = {
+            {"branch"},
+            {"diff",symbols = {added = ' ', modified = ' ', removed = ' '}},
+            {'filetype',
+              colored = true, icon_only = true, separator = '',
+              padding = { left = 1, right = 0 }
+            },
+            {"filename",
+              file_status = true, path = 0,
+              symbols = {modified = '[⨦]', readonly = '[]', unnamed = '[λ]'}
+            }
+          },
+          lualine_c = {{gps_content, cond = gps.is_available}},
+          lualine_x = {
+            diagnostic_section {
+              sections = {'error'}, color = lsp_colors.error, symbol = lsp_symbols.error, leading = ''
+            }, diagnostic_section {
+              sections = {'warn'}, color = lsp_colors.warn, symbol = lsp_symbols.warn, leading = ' '
+            }, diagnostic_section {
+              sections = {'info'}, color = lsp_colors.info, symbol = lsp_symbols.info, leading = ' '
+            }, diagnostic_section {
+              sections = {'hint'}, color = lsp_colors.hint, symbol = lsp_symbols.hint, leading = ' '
+            }, diagnostic_section {
+              sections = {'error', 'warn', 'hint', 'info'},
+              color = lsp_colors.ok,
+              fmt = function(status)
+                  if status == "0 0 0 0" then
+                      return string.format(" %s ", lsp_symbols.ok)
+                  end
+                  return ''
+              end
+            },
+          },
+          lualine_y = {
+              {"filetype"}, {"encoding", separator=''},
+              {"fileformat",
+                padding = {left = 0, right = 1},
+                symbols = {unix = vim.loop.os_uname().sysname == 'Darwin' and '' or '', dos = '', mac = '',}
+              }
+          },
+          lualine_z = {{"progress", fmt = function(progress) return " "..os.date('%m/%d %a')..'  '..''..progress end}, {location}}
+      },
+      inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {"filename"},
+          lualine_x = {"location"},
+          lualine_y = {},
+          lualine_z = {}
+      },
+      tabline = {},
+      extensions = {"quickfix", "nvim-tree", "toggleterm", "fugitive"}
+  }
 end
 
 function config.nvim_tree()
@@ -115,16 +154,10 @@ function config.nvim_tree()
         },
         diagnostics = {
             enable = true,
-            icons = {
-              hint = "",
-              info = "",
-              warning = "",
-              error = "",
-            }
+            icons = { hint = "", info = "", warning = "", error = ""}
         },
         system_open = {
-            cmd  = nil,
-            args = {}
+            cmd  = nil, args = {}
         },
         filters = {
             dotfiles = false,
@@ -142,7 +175,7 @@ function config.nvim_tree()
         view = {
             width = 30,
             side = "left",
-            auto_resize = false,
+            auto_resize = true,
             signcolumn = "yes",
             mappings = {
                 custom_only = true,
@@ -150,7 +183,7 @@ function config.nvim_tree()
                 list = {
                     {
                         key = {"<CR>", "o", "<2-LeftMouse>"},
-                        cb = tree_cb("tabnew")
+                        cb = tree_cb("edit")
                     }, {key = {"<2-RightMouse>", "<C-]>"}, cb = tree_cb("cd")},
                     {key = "<C-v>", cb = tree_cb("vsplit")},
                     {key = "<C-x>", cb = tree_cb("split")},
@@ -193,28 +226,29 @@ end
 function config.nvim_bufferline()
     require("bufferline").setup {
         options = {
-            number = "none",
-            modified_icon = "✥",
+            numbers = "ordinal",
+            indicator_icon = '▎',
+            modified_icon = "●",
             buffer_close_icon = "",
             left_trunc_marker = "",
             right_trunc_marker = "",
-            max_name_length = 14,
-            max_prefix_length = 13,
-            tab_size = 20,
+            max_name_length = 18,
+            max_prefix_length = 15,
+            tab_size = 18,
             show_buffer_close_icons = true,
             show_buffer_icons = true,
             show_tab_indicators = true,
-            diagnostics = "nvim_lsp",
+            diagnostics = "coc",
             always_show_bufferline = true,
             separator_style = "thin",
             offsets = {
                 {
                     filetype = "NvimTree",
-                    text = "File Explorer",
+                    text = " File Explorer",
                     text_align = "center",
                     padding = 1
                 }
-            }
+            },
         }
     }
 end
