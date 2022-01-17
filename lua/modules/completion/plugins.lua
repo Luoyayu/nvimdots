@@ -1,5 +1,6 @@
 local completion = {}
 
+completion["honza/vim-snippets"] = {opt = false}
 completion["neoclide/coc.nvim"] = {
   opt = true,
   event = "BufRead",
