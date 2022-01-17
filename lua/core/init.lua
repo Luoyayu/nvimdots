@@ -63,11 +63,11 @@ local neovide_config = function()
 end
 
 local dashboard_config = function()
-    vim.g.dashboard_footer_icon = "🐬 "
+    vim.g.dashboard_footer_icon = " "
     vim.g.dashboard_default_executive = "telescope"
 
     vim.g.dashboard_custom_header = {
-        [[                                                          ]],
+    [[                                                          ]],
 		[[    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗    ]],
 		[[    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║    ]],
 		[[    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║    ]],
@@ -102,7 +102,7 @@ local dashboard_config = function()
             command = "DashboardNewFile"
         },
         find_word = {
-            description = {" Word find                  comma f w "},
+            description = {" Word find                  comma f w "},
             command = "DashboardFindWord"
         }
     }
