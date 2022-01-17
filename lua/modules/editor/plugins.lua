@@ -89,6 +89,7 @@ editor["akinsho/nvim-toggleterm.lua"] = {
     config = conf.toggleterm
 }
 editor["numtostr/FTerm.nvim"] = {opt = true, event = "BufRead"}
+editor["mg979/vim-visual-multi"] = {opt = false, event = "BufRead"}
 editor["norcalli/nvim-colorizer.lua"] = {
     opt = true,
     event = "BufRead",
@@ -122,4 +123,5 @@ editor["liuchengxu/vista.vim"] = {
     after = "coc.nvim",
     config = conf.vista
 }
+editor["vimwiki/vimwiki"] = {opt = false, branch = "dev", config = conf.vimwiki}
 return editor
