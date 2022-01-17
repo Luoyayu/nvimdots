@@ -120,6 +120,7 @@ let g:coc_global_extensions = [
       \'coc-pairs',
       \'coc-highlight',
       \'coc-lightbulb',
+      \'coc-explorer',
       \
       \'coc-prettier',
       \'coc-markdownlint',
@@ -135,6 +136,8 @@ let g:coc_global_extensions = [
       \'coc-go',
       \'coc-pyright',
       \'coc-rust-analyzer',
+      \'coc-cmake',
+      \'coc-solargraph',
       \
       \'coc-db',
       \'coc-json',
