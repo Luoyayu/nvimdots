@@ -16,9 +16,12 @@
   "Lua.workspace.library": [
     "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua",
     "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua/vim",
-    "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua/vim/lsp"
+    "/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/share/nvim/runtime/lua/vim/lsp",
+
+    "~/.local/share/nvim/site/pack/packer/opt/packer.nvim/lua",
+    "~/.local/share/nvim/site/pack/packer/opt/packer.nvim/lua/packer"
   ],
-  "Lua.diagnostics.globals": ["vim"],
+  "Lua.diagnostics.globals": ["vim", "packer_plugins"],
   "Lua.runtime.version": "Lua 5.4",
 
   "rust-analyzer.enable": true,
