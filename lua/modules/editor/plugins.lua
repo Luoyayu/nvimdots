@@ -120,5 +120,5 @@ editor["liuchengxu/vista.vim"] = {
   after = "coc.nvim",
   config = conf.vista
 }
-editor["vimwiki/vimwiki"] = {opt = false, branch = "dev", config = conf.vimwiki}
+
 return editor
