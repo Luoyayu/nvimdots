@@ -40,6 +40,8 @@ local plug_map = {
       :with_silent(),
   ["n|<Leader>g"] = map_cu("lua require('FTerm').run('gitui')"):with_noremap()
       :with_silent(),
+  -- coc-explorer
+  ["n|<Leader>ce"] = map_cr('CocCommand explorer --sources buffer+,file+'):with_silent(),
   -- Plugin nvim-tree
   ["n|<Leader>e"] = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
   ["n|<Leader>ef"] = map_cr("NvimTreeFindFile"):with_noremap():with_silent(),
@@ -53,11 +55,11 @@ local plug_map = {
       :with_silent(),
   ["n|<Leader>fw"] = map_cu("DashboardFindWord"):with_noremap():with_silent(),
   ["n|<Leader>fn"] = map_cu("DashboardNewFile"):with_noremap():with_silent(),
-  ["n|<Leader>fb"] = map_cu("Telescope file_browser"):with_noremap()
-      :with_silent(),
+  ["n|<Leader>fb"] = map_cu("Telescope buffers"):with_noremap():with_silent(),
   ["n|<Leader>fg"] = map_cu("Telescope git_files"):with_noremap():with_silent(),
   ["n|<Leader>fz"] = map_cu("Telescope zoxide list"):with_noremap()
       :with_silent(),
+  ["n|<Leader>hk"] = map_cu("Telescope keymaps"):with_noremap():with_silent(),
   -- Plugin accelerate-jk
   ["n|j"] = map_cmd("v:lua.enhance_jk_move('j')"):with_silent():with_expr(),
   ["n|k"] = map_cmd("v:lua.enhance_jk_move('k')"):with_silent():with_expr(),
