@@ -288,7 +288,7 @@ Then you can figure out what modification makes error.
 |                      [itchyny/vim-cursorword](https://github.com/itchyny/vim-cursorword)                      |        Highlight cursor word         |
 |                     [junegunn/vim-easy-align](https://github.com/junegunn/vim-easy-align)                     |            Easy alignment            |
 |                    [terrortylor/nvim-comment](https://github.com/terrortylor/nvim-comment)                    |         Comment code quickly         |
-|                        [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim)                        |    Viewer & Finder for LSP symbols   |
+|                        [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim)                        |   Viewer & Finder for LSP symbols    |
 |             [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)             |   Super powerful code highlighter    |
 | [nvim-treesitter/nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) |     Select text objects quickly      |
 |              [romgrk/nvim-treesitter-context](https://github.com/romgrk/nvim-treesitter-context)              |         Show current context         |
@@ -333,8 +333,9 @@ Then you can figure out what modification makes error.
 
 # Keybindings
 
-The leader key is `,`. 
-If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in `iTerm2/Preferences/Profiles/yourProfiles/keys/General`
+The leader key is `,`.  
+If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in `iTerm2/Preferences/Profiles/yourProfiles/keys/General`.  
+`S-` is the `Shift` rather than `Super`.
 
 |                          Effect                           |            shortcut            |
 | :-------------------------------------------------------: | :----------------------------: |
@@ -343,7 +344,7 @@ If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in
 |                      update plugins                       |          `<leader>pu`          |
 |                       clean plugins                       |          `<leader>pc`          |
 |                                                           |                                |
-|                     toggle nvim-tree                      |            `<C-n>`             |
+|                     toggle nvim-tree                      |          `<leader>e`           |
 |                       toggle tagbar                       |            `<A-t>`             |
 |                                                           |                                |
 |                 open horizontal terminal                  |       `<C-w>t` or `<F5>`       |
@@ -356,6 +357,7 @@ If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in
 |               pick buffer `n`(`n`means No)                |            `<A-n>`             |
 |                       right buffer                        |            `<A-j>`             |
 |                        left buffer                        |            `<A-k>`             |
+|                     selelct buffer 1                      |             `A-1`              |
 |               move current buffer to right                |           `<A-S-k>`            |
 |                move current buffer to left                |           `<A-S-k>`            |
 |                   close current buffer                    |            `<A-q>`             |
@@ -446,14 +448,19 @@ If you are using iTerm2.app, make sure that the `Option` key is set to `ESC+` in
 |                      Debug step out                       |       `<leader>do`/`F11`       |
 |                     Debug disconnect                      |          `<leader>dd`          |
 |                      Git management                       |                                |
-|                         Prev hunk                         |              `[g`              |
-|                         Next hunk                         |              `]g`              |
+|                         Prev hunk                         |          `<leader>h[`          |
+|                         Next hunk                         |          `<leader>h]`          |
 |                        Stage hunk                         | `<leader>hs`(`n` and `v` mode) |
 |                        Reset hunk                         | `<leader>hr`(`n` and `v` mode) |
 |                      Undo stage hunk                      |          `<leader>hu`          |
 |                       Reset buffer                        |          `<leader>hR`          |
 |                       Preview hunk                        |          `<leader>hp`          |
 |                        Blame hunk                         |          `<leader>hb`          |
+|                       Stage buffer                        |          `<leader>hS           |
+|           Show Commit Contains Current Position           |           <leader>hc           |
+|                  Toggle Number Highlight                  |          `<leader>hn`          |
+|                   Toggle Line Highlight                   |          `<leader>hl`          |
+|                Toggle Word Diff Highlight                 |          `<leader>hw`          |
 
 You can see more keybinds in `lua/core/mapping.lua` and `lua/keymap/init.lua`.
 
@@ -500,4 +507,6 @@ Then use `Copilot setup` command to setup.
 - [x] Backup old compiled configuration when error occurs.
 
 # Resources
- - [nerdfonts all icons](https://www.nerdfonts.com/cheat-sheet)
+
+- [nerdfonts all icons](https://www.nerdfonts.com/cheat-sheet)
+- [nerdfonts all icons](https://www.nerdfonts.com/cheat-sheet)
