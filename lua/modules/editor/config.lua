@@ -71,9 +71,23 @@ function config.nvim_treesitter()
   vim.api.nvim_command("set foldmethod=expr")
   vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
 
+  local parser_config = require"nvim-treesitter.parsers".get_parser_configs()
+  parser_config.org = {
+    install_info = {
+      url = 'https://github.com/milisims/tree-sitter-org',
+      revision = 'f110024d539e676f25b72b7c80b0fd43c34264ef',
+      files = {'src/parser.c', 'src/scanner.cc'}
+    },
+    filetype = 'org'
+  }
+
   require"nvim-treesitter.configs".setup {
-    ensure_installed = "maintained",
-    highlight = {enable = true, disable = {"vim"}},
+    ensure_installed = {"org"}, -- {"maintained"},
+    highlight = {
+      enable = true,
+      disable = {"vim", "org"},
+      additional_vim_regex_highlighting = {'org'}
+    },
     textobjects = {
       select = {
         enable = true,
@@ -119,7 +133,9 @@ function config.nvim_gps()
     icons = {
       ["class-name"] = " ", -- Classes and class-like objects
       ["function-name"] = " ", -- Functions
-      ["method-name"] = " " -- Methods (functions inside class-like objects)
+      ["method-name"] = " ", -- Methods (functions inside class-like objects)
+      ["container-name"] = 'ﴰ ', -- 'פּ ', -- Containers (example: lua tables)
+      ["tag-name"] = '炙' -- Tags (example: html tags)
     },
     languages = {
       -- You can disable any language individually here
