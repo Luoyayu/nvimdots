@@ -32,10 +32,8 @@ function config.lualine()
     local total_column = tostring(vim.fn.col('$') - 1)
     local location_info = "%l/%L %c/" .. total_column
     if is_visual_mode then
-      local visual_append_info = tostring(
-                                     math.abs(vim.fn.line(".") -
-                                                  vim.fn.line("v")) + 1)
-      location_info = location_info .. ' 礪' .. visual_append_info
+      local selected_count = math.abs(vim.fn.line(".") - vim.fn.line("v"))
+      location_info = string.format("%s 礪%d", location_info, selected_count)
     end
     return location_info
   end
@@ -45,7 +43,8 @@ function config.lualine()
     warn = " ",
     info = " ",
     hint = " ",
-    ok = "ﮒ"
+    ok = "ﮒ ",
+    clean = " "
   }
   local lsp_colors = {
     error = {bg = "#f19072", fg = "#425066"},
@@ -152,7 +151,8 @@ function config.lualine()
         {
           "progress",
           fmt = function(progress)
-            return " " .. os.date('%m/%d %a') .. '  ' .. '' .. progress
+            local date_info = " " .. os.date('%m/%d %a')
+            return date_info .. '  ' .. ' ' .. progress
           end
         }, {location}
       }
@@ -183,7 +183,7 @@ function config.nvim_tree()
     highlight_opened_files = true,
     auto_ignore_ft = {"startify", "dashboard"},
     update_to_buf_dir = {enable = true, auto_open = true},
-    update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
+    update_focused_file = {enable = false, update_cwd = false, ignore_list = {}},
     diagnostics = {
       enable = true,
       icons = {hint = "", info = "", warning = "", error = ""}
@@ -264,6 +264,16 @@ function config.nvim_bufferline()
           text = " File Explorer",
           text_align = "center",
           padding = 1
+        }, {
+          filetype = "coc-explorer",
+          text = " File Explorer",
+          text_align = "center",
+          padding = 1
+        }, {
+          filetype = "vista",
+          text = " File Struct",
+          text_align = "center",
+          padding = 1
         }
       }
     }
@@ -286,26 +296,33 @@ function config.gitsigns()
       -- Default keymap options
       noremap = true,
       buffer = true,
-      ["n ]g"] = {
+      ["n <Leader>h["] = {
         expr = true,
         '&diff ? \']g\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''
       },
-      ["n [g"] = {
+      ["n <Leader>h]"] = {
         expr = true,
         '&diff ? \'[g\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''
       },
       ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-      ["v <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ["v <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
       ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
       ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
       ["v <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
       ["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
       ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
       ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+      ['n <leader>hU'] = '<cmd> lua require"gitsigns".reset_buffer_index()<CR>',
+      ["n <leader>hl"] = '<cmd> lua require"gitsigns".toggle_linehl()<CR>',
+      ["n <leader>hn"] = '<cmd> lua require"gitsigns".toggle_numhl()<CR>',
+      ["n <leader>hw"] = '<cmd> lua require"gitsigns".toggle_word_diff()<CR>',
       -- Text objects
       ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
       ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
     },
+    numhl = true,
+    linehl = false,
     watch_gitdir = {interval = 1000, follow_files = true},
     current_line_blame = true,
     current_line_blame_opts = {delay = 1000, virtual_text_pos = "eol"},
@@ -335,7 +352,7 @@ function config.indent_blankline()
       "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
       "packer", "vimwiki", "markdown", "json", "txt", "vista", "help",
       "todoist", "NvimTree", "peekaboo", "git", "TelescopePrompt", "undotree",
-      "flutterToolsOutline", "" -- for all buffers without a file type
+      "flutterToolsOutline", "coc-explorer", "" -- for all buffers without a file type
     },
     buftype_exclude = {"terminal", "nofile"},
     show_trailing_blankline_indent = false,
