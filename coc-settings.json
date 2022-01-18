@@ -80,5 +80,15 @@
     "snippet": "",
     "typeParameter": "",
     "default": ""
-  }
+  },
+
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.source": "nvim-web-devicons",
+  "explorer.icon.expanded": "-",
+  "explorer.icon.collapsed": "+",
+  "explorer.icon.selected": "✓",
+  "explorer.icon.hidden": "‥",
+  "explorer.icon.readonly": "RO",
+  "explorer.previewAction.onHover": "content",
+  "explorer.file.column.indent.indentLine": true
 }
