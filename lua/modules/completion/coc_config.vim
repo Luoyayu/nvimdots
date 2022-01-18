@@ -110,7 +110,10 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Open CocList
+nnoremap <silent><nowait> <space>l  :<C-u>CocList<CR>
 
+nmap <leader>hc <Plug>(coc-git-commit)
 
 let g:coc_global_extensions = [
       \'coc-lists',
